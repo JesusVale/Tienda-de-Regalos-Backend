@@ -1,6 +1,8 @@
+const Articulo = require("../models/comentario");
+
 class ComentarioDAO{
 
-    async crearComentario({id_usuario, id_articulo, rating, descripcion}){
+    async crearUsuario({id_usuario, id_articulo, rating, descripcion}){
         try{
             const comentario = new Comentario({id_usuario, id_articulo, rating, descripcion});
             await comentario.save();
@@ -10,7 +12,7 @@ class ComentarioDAO{
         }
     }
 
-    async obtenerComentariosPorArticulo(id_articulo,limit){
+    async obtenerUsuarioPorId(id_articulo,limit){
         try{
             const articulo = await Articulo.findById(id_articulo).populate("administrador", "nombre");
             if(!articulo){
@@ -23,7 +25,7 @@ class ComentarioDAO{
         }
     }
 
-    async eliminarComentario(id){
+    async eliminarUsuario(id){
         try{
             const comentario = Comentario.findById(id, {new: true})
             if(!comentario){
@@ -36,3 +38,5 @@ class ComentarioDAO{
     }
 
 }
+
+module.exports = new ComentarioDAO();
