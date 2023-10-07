@@ -1,4 +1,4 @@
-const Articulo = require("../models/comentario");
+const Comentario = require("../models/comentario");
 
 class ComentarioDAO{
 
@@ -12,7 +12,7 @@ class ComentarioDAO{
         }
     }
 
-    async obtenerUsuarioPorId(id_articulo,limit){
+    async obtenerUsuarioPorArticulo(id_articulo,limit){
         try{
             const articulo = await Articulo.findById(id_articulo).populate("administrador", "nombre");
             if(!articulo){
