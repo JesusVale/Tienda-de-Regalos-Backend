@@ -13,6 +13,11 @@ const comentarioSchema = new Schema({
         ref: "Usuario",
         required: true
     },
+    id_articulo: {
+        type: Schema.Types.ObjectId,
+        ref: "Articulo",
+        required: true
+    },
     rating: {
         type: Number,
         required: true
