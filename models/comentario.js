@@ -4,6 +4,10 @@ const {Schema, model} = require("mongoose");
 const UsuarioSchema = require("../models/usuario")
 
 const comentarioSchema = new Schema({
+    id: {
+        type: Number,
+        required: true,
+    },
     id_usuario: {
         type: Schema.Types.ObjectId,
         ref: "Usuario",
