@@ -2,6 +2,7 @@ module.exports = new ComentarioDAO();
 
 const {Schema, model} = require("mongoose");
 const UsuarioSchema = require("../models/usuario")
+const articuloSchema = require("../models/articulo")
 
 const comentarioSchema = new Schema({
     id: {
