@@ -1,6 +1,7 @@
 const {Schema} = require("mongoose")
 
 const direccionSchema = new Schema({
+    _id: false,
     calle: {
         type: String,
         required: true
