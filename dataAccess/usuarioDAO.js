@@ -2,7 +2,7 @@ const Usuario = require("../models/usuario");
 
 class UsuarioDAO{
 
-    async crearUsuario({id_usuario, id_articulo, rating, descripcion}){
+    async crearUsuario({nombre, tipo, email, password, telefono}){
         try{
             const usuario = new Usuario({nombre, tipo, email, password, telefono});
             await usuario.save();
