@@ -41,7 +41,7 @@ class ArticuloDAO{
 
     async eliminarArticulo(id){
         try{
-            const articulo = Articulo.findByIdAndRemove(id, {new: true})
+            const articulo = Articulo.findByIdAndRemove(id)
             return articulo;
         } catch(error){
             throw error;
