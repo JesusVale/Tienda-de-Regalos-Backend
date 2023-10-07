@@ -44,4 +44,4 @@ class UsuarioDAO{
 
 }
 
-module.exports = new ComentarioDAO();
+module.exports = new UsuarioDAO();
