@@ -1,4 +1,3 @@
-
 const Comentario = require("../models/comentario")
 
 class ComentarioDAO {
