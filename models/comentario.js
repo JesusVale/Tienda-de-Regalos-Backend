@@ -1,20 +1,13 @@
-module.exports = new ComentarioDAO();
 
 const {Schema, model} = require("mongoose");
-const UsuarioSchema = require("../models/usuario")
-const articuloSchema = require("../models/articulo")
 
 const comentarioSchema = new Schema({
-    id: {
-        type: Number,
-        required: true,
-    },
-    id_usuario: {
+    usuario: {
         type: Schema.Types.ObjectId,
         ref: "Usuario",
         required: true
     },
-    id_articulo: {
+    articulo: {
         type: Schema.Types.ObjectId,
         ref: "Articulo",
         required: true
@@ -26,11 +19,7 @@ const comentarioSchema = new Schema({
     descripcion: {
         type: String,
         required: true
-    }/*,
-    administrador: { 
-        type: Schema.Types.ObjectId,
-        ref: "Usuario"
-    }*/
+    }
 })
 
 module.exports = model("Comentario", comentarioSchema)

@@ -1,10 +1,10 @@
-const Comentario = require("../models/comentario");
+const Comentario = require("../models/comentario")
 
-class ComentarioDAO{
+class ComentarioDAO {
 
-    async crearUsuario({id_usuario, id_articulo, rating, descripcion}){
+    async crearComentario({usuario, articulo, rating, descripcion}){
         try{
-            const comentario = new Comentario({id_usuario, id_articulo, rating, descripcion});
+            const comentario = new Comentario({usuario, articulo, rating, descripcion});
             await comentario.save();
             return comentario;
         } catch(error){
@@ -12,29 +12,22 @@ class ComentarioDAO{
         }
     }
 
-    async obtenerUsuarioPorArticulo(id_articulo,limit){
+    async eliminarComentario(id){
         try{
-            const articulo = await Articulo.findById(id_articulo).populate("administrador", "nombre");
-            if(!articulo){
-              throw new Error("Articulo no encontrado");
-            }
-            const comentarios = await Comentario.find().limit(limit).select(id_articulo: id_articulo);
-            return comentarios;
+            const comentario = Comentario.findByIdAndRemove(id);
+            return comentario;
         } catch(error){
             throw error;
         }
     }
 
-    async eliminarUsuario(id){
+    async obtenerComentariosPorArticulo(id_articulo){
         try{
-            const comentario = Comentario.findById(id, {new: true})
-            if(!comentario){
-              throw new Error("Comentario no encontrado");
-            }
-            return Comentario.findByIdAndRemove(id, {new: true});
+            const comentarios = Comentario.find({articulo: id_articulo}).populate("usuario", nombre)
+            return comentarios;
         } catch(error){
             throw error;
-        }
+        } 
     }
 
 }
