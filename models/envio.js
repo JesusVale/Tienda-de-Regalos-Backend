@@ -38,7 +38,5 @@ const envioSchema = new Schema({
         type: Date,
         required: true
     }
-
-    
-    
-})
+});
+module.exports = model("Envio", compraSchema);
