@@ -12,9 +12,9 @@ class UsuarioDAO{
         }
     }
 
-    async obtenerUsuarioPorId(id_articulo,limit){
+    async obtenerUsuarioPorId(id){
         try{
-            const usuario= await Usuario.find().limit(limit);
+            const usuario = await Usuario.findById(id);
             return usuario;
         } catch(error){
             throw error;
@@ -32,11 +32,8 @@ class UsuarioDAO{
 
     async eliminarUsuario(id){
         try{
-            const usuario = Usuario.findById(id, {new: true})
-            if(!usuario){
-              throw new Error("Usuario no encontrado");
-            }
-            return Usuario.findByIdAndRemove(id, {new: true});
+            const usuario = Usuario.findByIdAndRemove(id);
+            return usuario;
         } catch(error){
             throw error;
         }
