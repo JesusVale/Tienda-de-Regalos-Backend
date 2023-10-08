@@ -21,7 +21,7 @@ const compraSchema = new Schema({
         ref: "Direccion",
         required: true
     },
-    articulos:{
+    articulo:{
         type: Schema.Types.ObjectId,
         ref: "Articulo",
         required: true
