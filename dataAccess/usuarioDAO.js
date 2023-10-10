@@ -21,6 +21,15 @@ class UsuarioDAO{
         }
     }
 
+    async obtenerUsuarioPorCorreo(email){
+        try{
+            const usuario = await Usuario.findOne({email});
+            return usuario;
+        } catch(error){
+            throw error;
+        }
+    }
+
     async actualizarUsuario(id, {nombre, tipo, email, password, telefono}){
         try{
             const usuario = Usuario.findByIdAndUpdate(id, {nombre, tipo, email, password, telefono}, {new: true});

@@ -1,8 +1,9 @@
-const {Schema} = require("mongoose")
+const {Schema, model} = require("mongoose")
+const direccionSchema = require("./direccion")
 
 const envioSchema = new Schema({
     costo:{
-        type: Decimal,
+        type: Number,
         required: true
     },
     articulo:{
@@ -13,16 +14,14 @@ const envioSchema = new Schema({
     estado:{
         type: String,
         required: true,
-        enum: ["Revisando Stock", "Enviado", "En camino", "Entregado"]
+        enum: ["Enviado", "En camino", "Entregado"]
     },
     partida:{
-        type: Schema.Types.ObjectId, 
-        ref: "Direccion",
+        type: direccionSchema,
         required: true
     },
     destino:{
-        type: Schema.Types.ObjectId, 
-        ref: "Direccion",
+        type: direccionSchema,
         required: true
     },
     usuario:{
@@ -39,4 +38,4 @@ const envioSchema = new Schema({
         required: true
     }
 });
-module.exports = model("Envio", compraSchema);
+module.exports = model("Envio", envioSchema);

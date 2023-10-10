@@ -2,10 +2,11 @@ const Compra = require("../models/compra");
 
 class CompraDAO{
     
-    async crearCompra({usuario,tipo,total,direccion,articulo}){
+    async crearCompra({usuario, metodo_pago, total, direccion, articulos}){
         try{
-        const compra = new Compra({usuario,tipo,total,direccion,articulo});
-        return compra;
+            const compra = new Compra({usuario, metodo_pago, total, direccion, articulos});
+            await compra.save();
+            return compra;
         }catch(error){
             throw error;
         }
@@ -13,7 +14,7 @@ class CompraDAO{
 
     async obtenerCompraPorUsuario(usuarioId){
         try {
-            const compra = await Envio.find({ usuario: usuarioId });
+            const compra = await Compra.find({ usuario: usuarioId }).populate("articulos", "nombre precio imagen");
             return compra;
         } catch (error) {
             throw error;

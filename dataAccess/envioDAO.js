@@ -27,9 +27,9 @@ class EnvioDAO{
             throw error;
         } 
     }
-    async ObtenerEnvioPorUsuario(usuarioId){
+    async obtenerEnvioPorUsuario(usuarioId){
         try {
-            const envios = await Envio.find({ usuario: usuarioId });
+            const envios = await Envio.find({ usuario: usuarioId }).populate("articulo", "nombre precio");
             return envios;
         } catch (error) {
             throw error;
@@ -38,7 +38,8 @@ class EnvioDAO{
     async obtenerEnviosRecientes(usuarioId){
         try {
             const envios = await Envio.find({ usuario: usuarioId })
-                .sort({ fechaLlegadaEstimada: -1 }); // Ordena por fechaLlegadaEstimada en orden descendente
+                .sort({ fechaLlegadaEstimada: -1 })
+                .populate("articulo", "nombre precio"); // Ordena por fechaLlegadaEstimada en orden descendente
     
             return envios;
         } catch (error) {

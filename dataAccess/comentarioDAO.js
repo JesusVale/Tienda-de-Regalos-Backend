@@ -23,7 +23,7 @@ class ComentarioDAO {
 
     async obtenerComentariosPorArticulo(id_articulo){
         try{
-            const comentarios = Comentario.find({articulo: id_articulo}).populate("usuario", nombre)
+            const comentarios = Comentario.find({articulo: id_articulo}).populate("usuario", "nombre")
             return comentarios;
         } catch(error){
             throw error;

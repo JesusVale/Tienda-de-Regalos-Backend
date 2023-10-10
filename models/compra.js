@@ -1,4 +1,5 @@
-const {Schema} = require("mongoose")
+const {Schema, model} = require("mongoose");
+const direccionSchema = require("./direccion")
 
 const compraSchema = new Schema({
 
@@ -7,24 +8,23 @@ const compraSchema = new Schema({
         ref: "Usuario",
         required: true
     },
-    tipo: {
+    metodo_pago: {
         type: String,
         required: true,
         enum: ["Debito", "Credito"]
     },
     total:{
-        type: Decimal,
+        type: Number,
         required: true
     },
     direccion:{
-        type: Schema.Types.ObjectId,
-        ref: "Direccion",
+        type: direccionSchema,
         required: true
     },
-    articulo:{
+    articulos:[{
         type: Schema.Types.ObjectId,
         ref: "Articulo",
         required: true
-    }    
+    }]    
 });
 module.exports = model("Compra", compraSchema);

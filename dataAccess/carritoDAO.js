@@ -12,18 +12,18 @@ class CarritoDAO{
         }
     }
 
-    async eliminarArticuloCarrito(id){
+    async eliminarArticuloCarrito({usuario, articulo}){
         try{
-            const carrito = await Carrito.findByIdAndRemove(id);
+            const carrito = await Carrito.findOneAndRemove({usuario, articulo});
             return carrito;
         } catch(error){
             throw error;
         }
     }
 
-    async actualizarArticuloCarrito(id, {cantidad}){
+    async actualizarArticuloCarrito({usuario, articulo}, cantidad){
         try{
-            const carrito = await Carrito.findByIdAndUpdate(id, {cantidad}, {new: true})
+            const carrito = await Carrito.findOneAndUpdate({usuario, articulo}, {cantidad}, {new: true})
             return carrito;
         } catch(error){
             throw error;
@@ -32,7 +32,7 @@ class CarritoDAO{
 
     async obtenerCarritoPorUsuario(usuario){
         try{
-            const carrito = await Carrito.find({usuario}).populate("articulo");
+            const carrito = await Carrito.find({usuario}).populate("articulo", "nombre imagen precio");
             return carrito;
         } catch(error){
             throw error;
