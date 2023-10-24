@@ -30,9 +30,9 @@ class UsuarioDAO{
         }
     }
 
-    async actualizarUsuario(id, {nombre, tipo, email, password, telefono}){
+    async actualizarUsuario(id, cambios){
         try{
-            const usuario = Usuario.findByIdAndUpdate(id, {nombre, tipo, email, password, telefono}, {new: true});
+            const usuario = Usuario.findByIdAndUpdate(id, cambios, {new: true});
             return usuario;
         } catch(error){
             throw error;
