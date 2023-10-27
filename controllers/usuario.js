@@ -1,4 +1,5 @@
 const usuarioDAO = require("../dataAccess/usuarioDAO")
+const bcryptjs = require('bcryptjs');
 
 async function crearUsuario(req, res){
     const {
@@ -9,7 +10,10 @@ async function crearUsuario(req, res){
         telefono
     } = req.body;
 
-    const usuario = await usuarioDAO.crearUsuario({nombre, tipo, email, password, telefono});
+    const salt = bcryptjs.genSaltSync();
+    const encryptedPassword = bcryptjs.hashSync(password, salt);
+
+    const usuario = await usuarioDAO.crearUsuario({nombre, tipo, email, password: encryptedPassword, telefono});
     res.json(usuario)
 }
 

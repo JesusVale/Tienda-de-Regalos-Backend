@@ -12,9 +12,9 @@ class ArticuloDAO{
         }
     }
 
-    async obtenerArticulos(limit){
+    async obtenerArticulos(from = 0, limit = 10){
         try{
-            const articulos = await Articulo.find().limit(limit).populate("administrador", "nombre");
+            const articulos = await Articulo.find().skip(from).limit(limit).populate("administrador", "nombre");
             return articulos;
         } catch(error){
             throw error;
