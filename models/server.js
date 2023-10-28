@@ -5,7 +5,8 @@ const conectarBD = require("../config/db")
 const {
     routerUsuario,
     routerAuth,
-    routerArticulo
+    routerArticulo,
+    routerComentario
 } = require("../routes/index")
 
 class Server{
@@ -15,7 +16,8 @@ class Server{
         this.paths = {
             usuarios: "/usuarios",
             auth: "/auth",
-            articulos: "/articulos"
+            articulos: "/articulos",
+            comentarios: "/comentarios"
         }
         this.connectBD();
         this.middlewares();
@@ -30,6 +32,7 @@ class Server{
         this.app.use(this.paths.usuarios, routerUsuario)
         this.app.use(this.paths.auth, routerAuth)
         this.app.use(this.paths.articulos, routerArticulo)
+        this.app.use(this.paths.comentarios, routerComentario)
     }
 
     middlewares(){

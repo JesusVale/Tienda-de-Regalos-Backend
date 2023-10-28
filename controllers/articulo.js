@@ -38,7 +38,7 @@ async function crearArticulo(req, res){
         administrador
     })
 
-    res.json(articulo)
+    res.status(201).json(articulo)
 
 }
 
@@ -94,6 +94,15 @@ async function obtenerArticulosDisponibles(_, res){
 
 }
 
+async function obtenerArticulosPorAdministrador(req, res){
+    const { _id } = req.usuario;
+
+    const articulos = await articuloDAO.obtenerArticulosPorAdministrador(_id);
+
+    res.json(articulos)
+
+}
+
 async function actualizarArticulo(req, res){
     const { id } = req.params;
     const { _id, administrador, direccion, ...data } = req.body;
@@ -143,6 +152,7 @@ module.exports = {
     crearArticulo,
     obtenerArticulos,
     obtenerArticulo,
+    obtenerArticulosPorAdministrador,
     obtenerArticulosPrecio,
     obtenerArticulosBusqueda,
     obtenerArticulosDisponibles,

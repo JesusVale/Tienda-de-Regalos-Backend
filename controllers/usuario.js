@@ -22,12 +22,18 @@ async function obtenerUsuarioId(req, res){
 
     const usuario = await usuarioDAO.obtenerUsuarioPorId(id)
 
-    res.json(usuario)
+    res.status(201).json(usuario)
 }
 
 async function actualizarUsuario(req, res){
     const { id } = req.params;
-    const {_id, password, ...data} = req.body;
+    const {_id, email, ...data} = req.body;
+
+    if(data.password){
+        const salt = bcryptjs.genSaltSync();
+        const encryptedPassword = bcryptjs.hashSync(data.password, salt);
+        data.password = encryptedPassword;
+    }
     
     const usuario = await usuarioDAO.actualizarUsuario(id, data);
 

@@ -84,6 +84,15 @@ class ArticuloDAO{
         }
     }
 
+    async obtenerArticulosPorAdministrador(idAdministrador){
+        try{    
+            const articulos = await Articulo.find({administrador: idAdministrador});
+            return articulos;
+        } catch(error){
+            throw error;
+        }
+    }
+
 }
 
 module.exports = new ArticuloDAO();
