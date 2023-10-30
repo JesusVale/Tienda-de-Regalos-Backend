@@ -2,20 +2,20 @@ const CarritoDAO = require("../dataAccess/carritoDAO")
 
 async function agregarArticuloCarrito(req, res){
     const {
-        articulo/*,
-        cantidad*/
+        articulo,
+        cantidad=1
     } = req.body;
 
     const { _id: usuario } = req.usuario;
-    
-    const carrito = await CarritoDAO.agregarArticuloCarrito({usuario, articulo});
+
+    const carrito = await CarritoDAO.agregarArticuloCarrito({usuario, articulo, cantidad});
 
     res.status(201).json(carrito);
     
 }
 
 async function obtenerCarritoPorUsuario(req, res){
-    const { id } = req.params;
+    const { _id:id } = req.usuario;
 
     const carrito = await CarritoDAO.obtenerCarritoPorUsuario(id);
 
@@ -40,13 +40,12 @@ async function actualizarArticuloCarrito(req, res){
 
 async function eliminarArticuloCarrito(req, res){
     const {
-        articulo/*,
-        cantidad*/
+        articulo
     } = req.body;
     
     const {  _id: usuario } = req.usuario;
 
-    const carrito = CarritoDAO.eliminarArticuloCarrito({usuario,articulo});
+    const carrito = CarritoDAO.eliminarArticuloCarrito({usuario, articulo});
 
     res.json(carrito);
 

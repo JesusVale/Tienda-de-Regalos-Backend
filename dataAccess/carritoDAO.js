@@ -2,9 +2,9 @@ const Carrito = require("../models/carrito");
 
 class CarritoDAO{
 
-    async agregarArticuloCarrito({usuario, articulo}){
+    async agregarArticuloCarrito({usuario, articulo, cantidad=1}){
         try{
-            const carrito = new Carrito({usuario, articulo, cantidad: 1});
+            const carrito = new Carrito({usuario, articulo, cantidad});
             await carrito.save();
             return carrito
         } catch(error){

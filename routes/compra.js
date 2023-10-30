@@ -13,7 +13,7 @@ const router = Router();
 router.post("/",[
     validarJWT,
     body("metodo_pago", "El metodo de pago debe ser Debito o Credito").isIn(["Debito", "Credito"]),
-    body("total").isNumeric(),
+    body("total").isDecimal(),
     body("articulos").notEmpty(),
     validarCampos
 ], crearCompra);

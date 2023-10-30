@@ -6,7 +6,9 @@ const {
     routerUsuario,
     routerAuth,
     routerArticulo,
-    routerComentario
+    routerComentario,
+    routerCarrito,
+    routerCompra
 } = require("../routes/index")
 
 class Server{
@@ -17,7 +19,9 @@ class Server{
             usuarios: "/usuarios",
             auth: "/auth",
             articulos: "/articulos",
-            comentarios: "/comentarios"
+            comentarios: "/comentarios",
+            compra: "/compra",
+            carrito: "/carrito"
         }
         this.connectBD();
         this.middlewares();
@@ -33,6 +37,8 @@ class Server{
         this.app.use(this.paths.auth, routerAuth)
         this.app.use(this.paths.articulos, routerArticulo)
         this.app.use(this.paths.comentarios, routerComentario)
+        this.app.use(this.paths.carrito, routerCarrito)
+        this.app.use(this.paths.compra, routerCompra)
     }
 
     middlewares(){

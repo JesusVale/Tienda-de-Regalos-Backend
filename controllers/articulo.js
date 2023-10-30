@@ -107,8 +107,6 @@ async function actualizarArticulo(req, res){
     const { id } = req.params;
     const { _id, administrador, direccion, ...data } = req.body;
 
-    console.log(data);
-
     if(direccion){
         data.direccion = JSON.parse(direccion); 
     }
