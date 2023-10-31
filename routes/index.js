@@ -4,6 +4,7 @@ const routerArticulo = require("./articulo")
 const routerComentario = require("./comentario")
 const routerCompra = require("./compra")
 const routerCarrito = require("./carrito")
+const routerEnvio = require("./envio")
 
 module.exports = {
     routerUsuario,
@@ -11,5 +12,6 @@ module.exports = {
     routerArticulo,
     routerComentario,
     routerCarrito,
-    routerCompra
+    routerCompra,
+    routerEnvio
 }

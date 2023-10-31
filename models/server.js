@@ -8,7 +8,8 @@ const {
     routerArticulo,
     routerComentario,
     routerCarrito,
-    routerCompra
+    routerCompra,
+    routerEnvio
 } = require("../routes/index")
 
 class Server{
@@ -21,7 +22,8 @@ class Server{
             articulos: "/articulos",
             comentarios: "/comentarios",
             compra: "/compras",
-            carrito: "/carritos"
+            carrito: "/carrito",
+            envio: "/envios"
         }
         this.connectBD();
         this.middlewares();
@@ -39,6 +41,7 @@ class Server{
         this.app.use(this.paths.comentarios, routerComentario)
         this.app.use(this.paths.carrito, routerCarrito)
         this.app.use(this.paths.compra, routerCompra)
+        this.app.use(this.paths.envio, routerEnvio)
     }
 
     middlewares(){

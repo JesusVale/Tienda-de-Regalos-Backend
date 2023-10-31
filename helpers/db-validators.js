@@ -1,4 +1,4 @@
-const { articuloDAO, usuarioDAO, comentarioDAO } = require("../dataAccess")
+const { articuloDAO, usuarioDAO, comentarioDAO, envioDAO } = require("../dataAccess")
 
 
 async function existeUsuarioPorId(id){
@@ -32,9 +32,18 @@ async function existeComentarioPorId(id){
     }
 }
 
+async function existeEnvioPorId(id){
+    const envio = await envioDAO.obtenerEnvioPorId(id);
+
+    if(!envio){
+        throw new Error("El Envio no existe")
+    }
+}
+
 module.exports = {
     existeUsuarioPorId,
     emailExiste,
     existeArticuloPorId,
-    existeComentarioPorId
+    existeComentarioPorId,
+    existeEnvioPorId
 }
