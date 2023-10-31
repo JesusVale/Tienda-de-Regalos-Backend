@@ -20,8 +20,8 @@ class Server{
             auth: "/auth",
             articulos: "/articulos",
             comentarios: "/comentarios",
-            compra: "/compra",
-            carrito: "/carrito"
+            compra: "/compras",
+            carrito: "/carritos"
         }
         this.connectBD();
         this.middlewares();

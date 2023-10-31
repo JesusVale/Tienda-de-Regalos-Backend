@@ -18,9 +18,8 @@ router.post("/",[
     validarCampos
 ], crearCompra);
 
-router.get("/:id",[
+router.get("/",[
     validarJWT,
-    param("id").custom(existeUsuarioPorId),
     validarCampos
 ], obtenerCompraPorUsuario)
 

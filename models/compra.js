@@ -1,6 +1,19 @@
 const {Schema, model} = require("mongoose");
 const direccionSchema = require("./direccion")
 
+const articuloCompraEsquema = new Schema({
+    _id: false,
+    articulo: {
+        type: Schema.Types.ObjectId,
+        ref: 'Articulo',
+        required: true
+    },
+    cantidad: {
+        type: Number,
+        required: true
+    }
+});
+
 const compraSchema = new Schema({
 
     usuario: {
@@ -21,10 +34,6 @@ const compraSchema = new Schema({
         type: direccionSchema,
         required: true
     },
-    articulos:[{
-        type: Schema.Types.ObjectId,
-        ref: "Articulo",
-        required: true
-    }]    
+    articulos:[articuloCompraEsquema]    
 });
 module.exports = model("Compra", compraSchema);

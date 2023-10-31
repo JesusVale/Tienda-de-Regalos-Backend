@@ -14,7 +14,7 @@ class CompraDAO{
 
     async obtenerCompraPorUsuario(usuarioId){
         try {
-            const compra = await Compra.find({ usuario: usuarioId }).populate("articulos", "nombre precio imagen");
+            const compra = await Compra.find({ usuario: usuarioId }).populate("articulos.articulo", "nombre precio imagen");
             return compra;
         } catch (error) {
             throw error;
