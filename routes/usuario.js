@@ -9,6 +9,7 @@ const router = Router();
 router.post("/",[
     body("tipo", "El tipo de usuario no es válido").isIn(["Usuario", "Administrador"]),
     body("email", "El email no es válido").isEmail(),
+    body("telefono", "E telefono no es válido").isMobilePhone(),
     body("email").custom(emailExiste),
     validarCampos
 ], crearUsuario)

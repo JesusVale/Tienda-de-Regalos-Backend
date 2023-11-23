@@ -14,7 +14,7 @@ const envioSchema = new Schema({
     estado:{
         type: String,
         required: true,
-        enum: ["Enviado", "En camino", "Entregado"]
+        enum: ["En proceso", "En camino", "Entregado"]
     },
     partida:{
         type: direccionSchema,

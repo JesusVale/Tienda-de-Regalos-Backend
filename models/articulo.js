@@ -1,5 +1,6 @@
 const {Schema, model} = require("mongoose");
 const direccionSchema = require("../models/direccion")
+const {categorias} = require("../constants")
 
 const articuloSchema = new Schema({
     nombre: {
@@ -17,6 +18,15 @@ const articuloSchema = new Schema({
     precio: {
         type: Number,
         required: true
+    },
+    rating: {
+        type: Number,
+        required: true
+    },
+    categoria: {
+        type: String,
+        required: true,
+        enum: categorias
     },
     stock: {
         type: Number,

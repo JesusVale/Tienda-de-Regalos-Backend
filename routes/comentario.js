@@ -19,7 +19,6 @@ router.post("/",[
 ], crearComentario);
 
 router.get("/:articulo",[
-    validarJWT,
     param("articulo").custom(existeArticuloPorId),
     validarCampos
 ], obtenerComentariosPorArticulo)
