@@ -6,13 +6,16 @@ const { crearArticulo,
         obtenerArticulosBusqueda,
         obtenerArticulosDisponibles,
         obtenerArticulosPorAdministrador,
+        obtenerArticuloPorCategoria,
+        obtenerArticuloPorRating,
         actualizarArticulo,
         eliminarArticulo 
     } = require("../controllers/articulo")
 const validarJWT = require("../middlewares/validar-jwt")
 const isAdministrador = require("../middlewares/is-administrador")
-const { body, param } = require("express-validator")
+const { body, param, query } = require("express-validator")
 const {validarCampos} = require("../middlewares/validar-campos")
+const { categorias } = require("../constants")
 const { existeArticuloPorId } = require("../helpers/db-validators")
 
 const router = Router()
@@ -21,7 +24,10 @@ router.get("/", obtenerArticulos)
 
 router.get("/:id", obtenerArticulo)
 
-router.get("/search/precio", obtenerArticulosPrecio)
+router.get("/search/precio", [
+
+    validarCampos
+], obtenerArticulosPrecio)
 
 router.get("/search/nombre", obtenerArticulosBusqueda)
 
@@ -31,6 +37,16 @@ router.get("/search/administrador",[
     validarJWT,
     isAdministrador
 ], obtenerArticulosPorAdministrador)
+
+router.get("/search/categoria/:categoria", [
+    param("categoria", "La categoria no es válida").isIn(categorias),
+    validarCampos
+], obtenerArticuloPorCategoria)
+
+router.get("/search/rating/:rating", [
+    param("rating", "El rating debe ser un un número del 1 al 5").isInt(),
+    validarCampos
+], obtenerArticuloPorRating)
 
 router.post("/", [
     validarJWT,

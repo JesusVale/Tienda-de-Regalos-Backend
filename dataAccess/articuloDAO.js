@@ -30,9 +30,9 @@ class ArticuloDAO{
         }
     }
 
-    async actualizarArticulo(id, {nombre, descripcion, imagen, precio, stock, direccion, administrador}){
+    async actualizarArticulo(id, data){
         try{
-            const articulo = Articulo.findByIdAndUpdate(id, {nombre, descripcion, imagen, precio, stock, direccion, administrador}, {new: true});
+            const articulo = Articulo.findByIdAndUpdate(id, data, {new: true});
             return articulo;
         } catch(error){
             throw error;
@@ -49,11 +49,31 @@ class ArticuloDAO{
     }
 
     async obtenerArticulosPorPrecio({min, max}){
-        const query = {
-            precio: {$gte: min, $lte: max }
-        }
+        const query = {};
+
+        if (min) query.$gte = min;
+        if (max) query.$lte = max;
+
         try{    
-            const articulos = await Articulo.find(query);
+            const articulos = await Articulo.find({precio: query}).sort({precio: 1});
+            return articulos;
+        } catch(error){
+            throw error;
+        }
+    }
+
+    async obtenerArticulosPorCategoria(categoria){
+        try{    
+            const articulos = await Articulo.find({categoria});
+            return articulos;
+        } catch(error){
+            throw error;
+        }
+    }
+
+    async obtenerArticulosPorRating(rating){
+        try{
+            const articulos = await Articulo.find({rating});
             return articulos;
         } catch(error){
             throw error;

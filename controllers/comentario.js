@@ -1,4 +1,4 @@
-const comentarioDAO = require("../dataAccess/comentarioDAO")
+const { comentarioDAO, articuloDAO } = require("../dataAccess/index.js");
 
 async function crearComentario(req, res){
     const {
@@ -10,6 +10,13 @@ async function crearComentario(req, res){
     const { _id: usuario } = req.usuario;
     
     const comentario = await comentarioDAO.crearComentario({articulo, rating, descripcion, usuario});
+    const comentariosArticulo = await comentarioDAO.obtenerComentariosPorArticulo(articulo);
+    if(comentariosArticulo.length > 0){
+        let newRating = comentariosArticulo.reduce((accumulator, {rating}) => accumulator + rating, 0);
+        newRating = newRating / comentariosArticulo.length
+        await articuloDAO.actualizarArticulo(articulo, {rating: newRating})
+    }
+    
 
     res.status(201).json(comentario);
     

@@ -25,18 +25,26 @@ async function crearArticulo(req, res){
         })
     }
 
-    const { tempFilePath } = req.files.imagen
-    const { secure_url:imagen } = await cloudinary.uploader.upload( tempFilePath );
+    
+    if(req.files?.imagen){
+        const { tempFilePath } = req.files.imagen
+        const { secure_url:imagen } = await cloudinary.uploader.upload( tempFilePath );
+        
+    } else{
+        const imagen = "https://res.cloudinary.com/dbarpo6g3/image/upload/v1698216389/samples/ecommerce/shoes.png";
+    }
 
     const articulo = await articuloDAO.crearArticulo({
         nombre,
         descripcion,
         imagen,
+        rating: 5,
         precio,
         stock,
         direccion: JSON.parse(direccion),
         administrador
     })
+    
 
     res.status(201).json(articulo)
 
@@ -103,9 +111,24 @@ async function obtenerArticulosPorAdministrador(req, res){
 
 }
 
+async function obtenerArticuloPorCategoria(req, res){
+    const { categoria } = req.params;
+
+    const articulos = await articuloDAO.obtenerArticulosPorCategoria(categoria);
+
+    res.json(articulos);
+}
+
+async function obtenerArticuloPorRating(req, res){
+    const { rating } = req.params;
+    const articulos = await articuloDAO.obtenerArticulosPorRating(Number(rating));
+
+    res.json(articulos);
+}
+
 async function actualizarArticulo(req, res){
     const { id } = req.params;
-    const { _id, administrador, direccion, ...data } = req.body;
+    const { _id, administrador, direccion, rating, ...data } = req.body;
 
     if(direccion){
         data.direccion = JSON.parse(direccion); 
@@ -154,6 +177,8 @@ module.exports = {
     obtenerArticulosPrecio,
     obtenerArticulosBusqueda,
     obtenerArticulosDisponibles,
+    obtenerArticuloPorCategoria,
+    obtenerArticuloPorRating,
     actualizarArticulo,
     eliminarArticulo
 }
