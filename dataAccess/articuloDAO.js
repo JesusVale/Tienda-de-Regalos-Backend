@@ -2,9 +2,9 @@ const Articulo = require("../models/articulo");
 
 class ArticuloDAO{
 
-    async crearArticulo({nombre, descripcion, imagen, precio, stock, direccion, administrador}){
+    async crearArticulo({nombre, descripcion, imagen, rating, categoria, precio, stock, direccion, administrador}){
         try{
-            const articulo = new Articulo({nombre, descripcion, imagen, precio, stock, direccion, administrador});
+            const articulo = new Articulo({nombre, descripcion, imagen, rating, categoria, precio, stock, direccion, administrador});
             await articulo.save();
             return articulo;
         } catch(error){
