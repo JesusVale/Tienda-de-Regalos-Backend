@@ -12,6 +12,7 @@ async function crearArticulo(req, res){
         nombre,
         descripcion,
         precio,
+        categoria,
         stock,
         direccion
     } = req.body;
@@ -25,20 +26,19 @@ async function crearArticulo(req, res){
         })
     }
 
-    
+    let imagen = "https://res.cloudinary.com/dbarpo6g3/image/upload/v1698216389/samples/ecommerce/shoes.png";
     if(req.files?.imagen){
         const { tempFilePath } = req.files.imagen
-        const { secure_url:imagen } = await cloudinary.uploader.upload( tempFilePath );
-        
-    } else{
-        const imagen = "https://res.cloudinary.com/dbarpo6g3/image/upload/v1698216389/samples/ecommerce/shoes.png";
+        const { secure_url } = await cloudinary.uploader.upload( tempFilePath );
+        imagen = secure_url; 
     }
-
+     
     const articulo = await articuloDAO.crearArticulo({
         nombre,
         descripcion,
         imagen,
         rating: 5,
+        categoria,
         precio,
         stock,
         direccion: JSON.parse(direccion),
@@ -137,11 +137,14 @@ async function actualizarArticulo(req, res){
     if(req.files?.imagen){
         //Se elimina la imagen del articulo ya existente
         const articulo = await articuloDAO.obtenerArticuloPorId(id);
-        const nombreArr = articulo.imagen.split('/');
-        const nombre    = nombreArr[ nombreArr.length - 1 ];
-        const [ public_id ] = nombre.split('.');
-        cloudinary.uploader.destroy( public_id );
 
+        if(articulo.imagen.includes("cloudinary")){
+            const nombreArr = articulo.imagen.split('/');
+            const nombre    = nombreArr[ nombreArr.length - 1 ];
+            const [ public_id ] = nombre.split('.');
+            cloudinary.uploader.destroy( public_id );
+        }
+        
         //Se sube nueva imagen
         const {tempFilePath} = req.files.imagen;
         const { secure_url } = await cloudinary.uploader.upload( tempFilePath );
@@ -160,10 +163,13 @@ async function eliminarArticulo(req, res){
     const articulo = await articuloDAO.eliminarArticulo(id)
 
     //Eliminar Imagen
-    const nombreArr = articulo.imagen.split('/');
-    const nombre    = nombreArr[ nombreArr.length - 1 ];
-    const [ public_id ] = nombre.split('.');
-    cloudinary.uploader.destroy( public_id );
+    if(articulo.imagen.includes("cloudinary")){
+        const nombreArr = articulo.imagen.split('/');
+        const nombre    = nombreArr[ nombreArr.length - 1 ];
+        const [ public_id ] = nombre.split('.');
+        cloudinary.uploader.destroy( public_id );
+    }
+    
 
     res.json(articulo);
 
