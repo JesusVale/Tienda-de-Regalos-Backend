@@ -8,6 +8,16 @@ async function agregarArticuloCarrito(req, res){
 
     const { _id: usuario } = req.usuario;
 
+    const carritos = await CarritoDAO.obtenerCarritoPorUsuario(usuario);
+
+    const incluye = carritos.find(carrito => carrito.articulo._id.toString() === articulo);
+
+    if(incluye){
+        return res.status(400).json({
+            msg: "Este articulo ya existe en el carrito"
+        })
+    }
+
     const carrito = await CarritoDAO.agregarArticuloCarrito({usuario, articulo, cantidad});
 
     res.status(201).json(carrito);
@@ -15,7 +25,7 @@ async function agregarArticuloCarrito(req, res){
 }
 
 async function obtenerCarritoPorUsuario(req, res){
-    const { _id:id } = req.usuario;
+    const { _id: id } = req.usuario;
 
     const carrito = await CarritoDAO.obtenerCarritoPorUsuario(id);
 
