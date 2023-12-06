@@ -1,4 +1,4 @@
-const { compraDAO, envioDAO, articuloDAO } = require("../dataAccess")
+const { compraDAO, envioDAO, articuloDAO, carritoDAO } = require("../dataAccess")
 const calcularDistanciaTiempo = require("../helpers/calcular-distancia")
 
 async function crearCompra(req, res){
@@ -31,7 +31,8 @@ async function crearCompra(req, res){
         await envioDAO.crearEnvio({
             costo,
             estado: "En camino", 
-            articulo, 
+            articulo,
+            cantidad, 
             partida: articulo.direccion, 
             destino: direccion, 
             usuario,
@@ -41,6 +42,8 @@ async function crearCompra(req, res){
     }
 
     const compra = await compraDAO.crearCompra({metodo_pago, total, direccion, articulos, usuario});
+
+    await carritoDAO.eliminarCarritoPorUsuario(usuario);
 
     res.status(201).json(compra);
     

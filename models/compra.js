@@ -24,7 +24,7 @@ const compraSchema = new Schema({
     metodo_pago: {
         type: String,
         required: true,
-        enum: ["Debito", "Credito"]
+        enum: ["debito/credito", "transferencia", "paypal"]
     },
     total:{
         type: Number,
