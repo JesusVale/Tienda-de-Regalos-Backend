@@ -24,8 +24,29 @@ async function obtenerEnviosRecientes(req, res){
     res.json(envios);
 }
 
+async function obtenerEnviosPorFecha(req, res){
+    const { fecha } = req.params;
+    const usuario = req.usuario;
+    const envios = await envioDAO.obtenerEnvioPorFecha(new Date(fecha), usuario);
+
+    res.json(envios);
+
+}
+
+async function actualizarEnvio(req, res){
+    const { id } = req.params;
+    const { estado } = req.body;
+    const envio = await envioDAO.actualizarEnvio(id, {estado})
+
+    res.json({
+        envio
+    })
+}
+
 module.exports = {
     obtenerEnvioPorId,
     obtenerEnviosPorUsuario,
-    obtenerEnviosRecientes
+    obtenerEnviosRecientes,
+    obtenerEnviosPorFecha,
+    actualizarEnvio
 }

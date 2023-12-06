@@ -36,6 +36,14 @@ const envioSchema = new Schema({
     fechaLlegadaEstimada:{
         type: Date,
         required: true
+    },
+    cantidad: {
+        type: Number,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 module.exports = model("Envio", envioSchema);
