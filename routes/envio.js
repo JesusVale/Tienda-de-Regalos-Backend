@@ -2,7 +2,9 @@ const {Router} = require("express")
 const {
     obtenerEnvioPorId,
     obtenerEnviosPorUsuario,
-    obtenerEnviosRecientes
+    obtenerEnviosRecientes,
+    obtenerEnviosPorFecha,
+    actualizarEnvio
 } = require("../controllers/envio")
 const  validarJWT  = require("../middlewares/validar-jwt")
 const {validarCampos} = require("../middlewares/validar-campos")
@@ -17,6 +19,12 @@ router.get("/:id",[
     validarCampos
 ], obtenerEnvioPorId )
 
+router.put("/:id",[
+    validarJWT,
+    param("id").custom(existeEnvioPorId),
+    validarCampos
+], actualizarEnvio )
+
 router.get("/", [
     validarJWT,
     validarCampos
@@ -26,5 +34,10 @@ router.get("/search/recientes",[
     validarJWT,
     validarCampos
 ], obtenerEnviosRecientes)
+
+router.get("/search/date/:fecha",[
+    validarJWT,
+    validarCampos
+], obtenerEnviosPorFecha)
 
 module.exports = router;

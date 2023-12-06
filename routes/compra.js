@@ -12,7 +12,7 @@ const router = Router();
 
 router.post("/",[
     validarJWT,
-    body("metodo_pago", "El metodo de pago debe ser Debito o Credito").isIn(["Debito", "Credito"]),
+    body("metodo_pago", "El metodo de pago debe ser Debito o Credito").isIn(["debito/credito", "transferencia", "paypal"]),
     body("total").isDecimal(),
     body("articulos").notEmpty(),
     validarCampos

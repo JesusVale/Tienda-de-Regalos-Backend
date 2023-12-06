@@ -39,6 +39,15 @@ class CarritoDAO{
         }
     }
 
+    async eliminarCarritoPorUsuario(usuario){
+        try{
+            const carrito = await Carrito.deleteMany({usuario});
+            return carrito;
+        } catch(error){
+            throw error;
+        }
+    }
+
 }
 
 module.exports = new CarritoDAO();
